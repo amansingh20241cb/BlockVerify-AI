@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b18">
+  <meta name="description" content="BlockVerify — document integrity analysis and blockchain verification.">
+  <title>BlockVerify — Document Trust Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/chatbot.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="ambient-grid"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="BlockVerify home">
+      <span class="brand-symbol"><i></i><i></i><i></i></span>
+      <span class="brand-word">BLOCKVERIFY<span class="brand-accent">.APP</span><small>DOCUMENT TRUST PLATFORM</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="active" href="#workspace">Workspace</a><a href="#how-it-works">How it works</a>
+    </nav>
+    <div class="top-actions">
+      <div class="network-chip"><span class="pulse-dot"></span><span>SEPOLIA TESTNET</span></div>
+      <span class="wallet-state" id="networkStatus">Wallet not connected</span>
+      <button id="connectBtn" class="btn btn-ghost"><span class="btn-icon">◈</span> Connect wallet</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> DOCUMENT INTEGRITY, REIMAGINED</div>
+        <h1>Confidence starts<br>with <span>verification.</span></h1>
+        <p>Analyze document files, create a unique cryptographic fingerprint and check its registration on the Ethereum blockchain — all from one secure workspace.</p>
+        <div class="hero-actions"><a class="btn btn-primary hero-cta" href="#workspace">Start verifying <span>↘</span></a><span class="hero-note"><span class="tiny-check">✓</span> No document stored on-chain</span></div>
+        <div class="hero-tags"><span>✦ Preliminary checks</span><span>⌘ SHA-256 fingerprint</span><span>◇ Blockchain registry</span></div>
+      </div>
+      <div class="hero-visual" aria-label="Abstract digital security illustration">
+        <div class="visual-glow"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+        <div class="core-shield"><div class="shield-inner">✓</div></div>
+        <span class="orbit-node node-one"><b>01</b> SHA-256</span><span class="orbit-node node-two"><b>02</b> WEB3</span><span class="orbit-node node-three"><b>03</b> FILE CHECK</span>
+        <div class="visual-caption"><span class="pulse-dot"></span> INTEGRITY ENGINE <b>READY</b></div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div><span class="strip-icon">⌘</span><span><b>SHA-256</b><small>Unique file fingerprint</small></span></div>
+      <div><span class="strip-icon">◇</span><span><b>Ethereum Sepolia</b><small>Blockchain test network</small></span></div>
+      <div><span class="strip-icon">▣</span><span><b>Privacy-aware</b><small>Temporary file processing</small></span></div>
+      <div><span class="strip-icon">✦</span><span><b>Preliminary analysis</b><small>Transparent file checks</small></span></div>
+    </section>
+
+    <section class="section-heading" id="workspace">
+      <div><span class="section-index">01 / YOUR WORKSPACE</span><h2>Document verification</h2><p>Upload a document, review its report and register or verify its fingerprint.</p></div>
+      <div class="secure-label"><span>✧</span> SHA-256 PROTECTED</div>
+    </section>
+
+    <section class="workspace">
+      <article class="glass-card analyze-card">
+        <div class="card-top"><div class="step-icon violet">01</div><div class="card-title"><span class="overline">START HERE</span><h3>Analyze a document</h3></div><span class="corner-mark">↗</span></div>
+        <p class="card-desc">Choose a PDF or image. BlockVerify checks basic file properties and generates its SHA-256 fingerprint.</p>
+        <label class="dropzone" for="analyzeFile" id="dropzone">
+          <span class="upload-orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15.5v3A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5v-3"/></svg></span>
+          <strong>Drag and drop your file</strong><span class="drop-hint">or <b>browse your device</b></span>
+          <span class="file-types"><em>PDF</em><em>PNG</em><em>JPG</em><small>UP TO 10 MB</small></span>
+          <span class="file-name" id="fileName">No file selected</span>
+        </label>
+        <input type="file" id="analyzeFile" name="document" accept=".pdf,.png,.jpg,.jpeg" hidden>
+        <button id="analyzeBtn" class="btn btn-primary btn-wide">Analyze &amp; generate fingerprint <span>→</span></button>
+        <p id="analyzeMsg" class="msg" aria-live="polite"></p>
+        <div class="privacy-line"><span>✓</span> Uploaded file is deleted from the demo server after hashing.</div>
+      </article>
+
+      <article class="glass-card report-card">
+        <div class="card-top"><div class="step-icon cyan">02</div><div class="card-title"><span class="overline">YOUR RESULTS</span><h3>Analysis report</h3></div><span class="status-pill" id="analysisStatus">AWAITING FILE</span></div>
+        <div id="emptyState" class="empty-state"><div class="empty-icon"><span>⌁</span></div><h4>Your report will appear here</h4><p>Run an analysis to see the preliminary checks, score and file fingerprint.</p><div class="empty-lines"><i></i><i></i><i></i></div></div>
+        <div id="report" hidden>
+          <div class="score-panel"><div class="score-ring"><div class="score" id="score">--</div><small>/100</small></div><div class="score-copy"><span class="overline">PRELIMINARY CHECK SCORE</span><strong id="label"></strong><p id="summary"></p></div></div>
+          <ul id="checks" class="checks"></ul>
+          <div class="hash-panel"><div class="hash-head"><span class="overline">SHA-256 FINGERPRINT</span><button id="copyHash" class="copy-btn" type="button">Copy hash ↗</button></div><code id="hash"></code><p id="fileInfo"></p></div>
+          <button id="registerBtn" class="btn btn-primary btn-wide" disabled>Register fingerprint on-chain <span>↗</span></button>
+          <p id="walletMsg" class="msg" aria-live="polite"></p><p id="registerMsg" class="msg" aria-live="polite"></p>
+        </div>
+      </article>
+    </section>
+
+    <section class="glass-card blockchain-card">
+      <div class="blockchain-intro"><div class="step-icon blue">03</div><div><span class="overline">BLOCKCHAIN REGISTRY</span><h3>Verify on the network</h3><p>Check whether this exact file fingerprint has already been registered by a wallet.</p></div></div>
+      <div class="verify-area">
+        <div class="chain-status"><span class="chain-symbol">◇</span><div><b>Ethereum · Sepolia</b><small>Public test network</small></div><span class="network-live"><i></i> TESTNET</span></div>
+        <div class="verify-controls"><input type="file" id="verifyFile" accept=".pdf,.png,.jpg,.jpeg" aria-label="Choose document to verify"><button id="verifyBtn" class="btn btn-outline">Verify document <span>→</span></button></div>
+        <p id="verifyMsg" class="msg" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="section-heading compact"><div><span class="section-index">02 / THE WORKFLOW</span><h2>Three steps. One clear record.</h2><p>A simple flow from a local file to a verifiable blockchain entry.</p></div><span class="secure-label">BUILT FOR TRANSPARENCY</span></div>
+      <div class="how-grid">
+        <article class="how-card"><span class="how-number">01</span><div class="how-icon">⌕</div><h3>Analyze</h3><p>Preliminary checks review the file format, size and filename indicators.</p><span class="how-foot">FLASK · PYTHON</span></article>
+        <article class="how-card"><span class="how-number">02</span><div class="how-icon">#</div><h3>Fingerprint</h3><p>SHA-256 converts the exact file bytes into a unique fixed-length fingerprint.</p><span class="how-foot">CRYPTOGRAPHIC HASH</span></article>
+        <article class="how-card"><span class="how-number">03</span><div class="how-icon">◇</div><h3>Verify on-chain</h3><p>A smart contract records and checks the fingerprint on Ethereum Sepolia.</p><span class="how-foot">SOLIDITY · ETHEREUM</span></article>
+      </div>
+    </section>
+
+    <footer class="footer"><a class="brand footer-brand" href="#"><span class="brand-symbol"><i></i><i></i><i></i></span><span class="brand-word">BLOCKVERIFY<span class="brand-accent">.APP</span></span></a><span></span></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+  <script src="/static/app.js"></script>
+  <script src="/static/chatbot.js" defer></script>
+</body>
+</html>
